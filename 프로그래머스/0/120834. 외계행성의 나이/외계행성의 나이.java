@@ -1,16 +1,14 @@
+import java.util.*;
+
 class Solution {
     public String solution(int age) {
         String answer = "";
         
-        StringBuilder sb = new StringBuilder();
         while(age>0){
-            int n = age%10;
-            sb.append((char)('a' + n));
+            answer = (char)('a' + age % 10) + answer;//맨 앞으로 추가 가능
             age/=10;
         }
-        
-        answer = sb.reverse().toString();
-        
+
         return answer;
     }
 }
