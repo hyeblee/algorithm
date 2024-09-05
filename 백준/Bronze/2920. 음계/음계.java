@@ -8,6 +8,7 @@ public class Main{
 		for(int i=0;i<8;i++) {
 			arr[i] = sc.nextInt();
 		}
+        sc.close();
 		
 		int diff = arr[0] - arr[1];
 		
