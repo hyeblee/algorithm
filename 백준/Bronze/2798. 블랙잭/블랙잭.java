@@ -1,7 +1,7 @@
 import java.util.*;
 
 public class Main{
-
+    // total이 M을 넘는 경우를 고려하지 않아서 틀렸다.
 	
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
