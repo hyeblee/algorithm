@@ -1,28 +1,32 @@
-import java.util.Scanner;
-import java.util.ArrayList;
-import java.util.Collections;
- 
- 
-public class Main {	
-	public static void main(String[] args) {
-    
-		Scanner in = new Scanner(System.in);
-		StringBuilder sb = new StringBuilder();
+import java.util.*;
+import java.math.*;
+import java.io.*;
+
+
+
+public class Main{
+	public static void main(String[] args) throws IOException{
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		
-		int N = in.nextInt();
 		
-		// list 계열 중 하나를 쓰면 된다.
-		ArrayList<Integer> list = new ArrayList<>();
+		String N = br.readLine();
+		int n = Integer.parseInt(N);
+
+		List<Integer> list = new ArrayList<>();
 		
-		for(int i = 0; i < N; i++) {
-			list.add(in.nextInt());
+		for(int i=0;i<n;i++) {
+			list.add(Integer.parseInt(br.readLine()));
 		}
 		
 		Collections.sort(list);
+		StringBuilder sb = new StringBuilder();
 		
-		for(int value : list) {
-			sb.append(value).append('\n');
+		for (int val : list) {
+			sb.append(val).append('\n');
 		}
 		System.out.println(sb);
+
+		
+		
 	}
 }
