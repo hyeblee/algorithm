@@ -1,29 +1,14 @@
 import java.util.*;
 
-// priorityQueue는 순서를 보장하지 않는 데이터구조이다.
-// 우선순위가 같을 시, 삽입 순서로 처리를 보장할 수 없다.
-// Comparable인터페이스의 compareTo는 this가 o보다 클 때 양수를 반환한다.
-// o1.compareTo(o2) 이렇게 하쟈나. . .
-// Queue를 인자로 받은 메서드에서, Queue를 조작하면 원래 큐도 조작된다.
-// 원래큐는 그대로 두고 싶으면 깊은 복사한 큐를 조작해야한다.
-// 얕은 복사는 주소를 참조하는 것이기 때문에, 원래 큐의 값이 변형된다.
 
 
 public class Main {
-	public static void printQueue(Queue<Document> queue) {
-		Queue<Document> copy = new LinkedList<>(queue);
-		while(copy.size()>0) {
-			Document document = copy.poll();
-			System.out.print("printing"+document.priority+"["+document.order+"]");
-		}
-		System.out.println();
-	}
 	
 	public static class Document {
 		int order;
 		int priority;
 	}
-
+	// 뒤에 자신보다 큰 원소가 있는지 구하는 메서드 
 	public static boolean hasLargeElementAfter(int priority, int order, Queue<Document> queue) {
 		Queue<Document> copy = new LinkedList<>(queue);
 		while(copy.size()>0) {
@@ -56,16 +41,13 @@ public class Main {
 
 			
 			while (queue.size() > 0) {
-				Document tmp = queue.peek();
-
+				Document tmp = queue.poll();
+				// 자신보다 우선순위가 큰 원소가 있다면
 				if (hasLargeElementAfter(tmp.priority, tmp.order, queue)) {
-					queue.offer(tmp);
-					queue.poll();
+					queue.offer(tmp); //다시 큐에 더한다.
 				}
 				else { //출력해도 괜찮은 상태
-					queue.poll();
 					cnt++;
-
 					if(tmp.order==M) {
 						break;
 					}
