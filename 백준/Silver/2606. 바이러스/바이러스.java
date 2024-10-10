@@ -9,37 +9,43 @@ import java.util.Map;
 import java.util.PriorityQueue;
 
 public class Main {
+	public static ArrayList<Integer>[] adjList;
 	public static int n;
-	public static int[][] arr = new int[101][101];
-	public static boolean[] check = new boolean[101];
-	public static int result=0;
+
+	public static boolean[] visit = new boolean[101];
+	public static int count=0;
 	
-	public static void dfs(int node) {
-		check[node] = true;
-		result++;
-		
-		for(int i=1;i<=n;i++) {
-			if(!check[i]&&arr[node][i]==1) {
-				dfs(i);
+	public static int dfs(int node) {
+		visit[node] = true;
+		for(int a : adjList[node]) {
+			if(visit[a]==false) {
+				count++;
+				dfs(a);
 			}
 		}
-
-		
+		return count;
 	}
 	
 	public static void main(String[] args) throws IOException {
 		Scanner sc = new Scanner(System.in);
 		n = sc.nextInt();
+		
 		int t = sc.nextInt();
+		
+		adjList = new ArrayList[n+1];
+		for(int i=1;i<=n;i++) {
+			adjList[i] = new ArrayList<Integer>();
+		}
 
+		
 		for(int i=0;i<t;i++) {
-			int a = sc.nextInt();
-			int b = sc.nextInt();
-			arr[a][b] = arr[b][a] = 1;
+			int u = sc.nextInt();
+			int v = sc.nextInt();
+			adjList[u].add(v);
+			adjList[v].add(u);
 		}
 		
-		dfs(1);
+		System.out.println(dfs(1));
 		
-		System.out.println(result-1);
 	}
 }
