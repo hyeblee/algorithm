@@ -27,7 +27,7 @@ public class Main {
 		for(int i=0;i<M;i++) {
 			String cmd = br.readLine();
 			
-			if(cmd.matches("-?\\d+")) { // 숫자면
+			if(cmd.charAt(0)>='1'&&cmd.charAt(0)<='9') { // 숫자면
 				int num = Integer.parseInt(cmd);
 				sb.append(map.get(num)+"\n");
 			}
