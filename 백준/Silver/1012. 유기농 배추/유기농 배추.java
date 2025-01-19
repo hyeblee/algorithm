@@ -1,71 +1,77 @@
-import java.util.*;
-import java.io.*;
+import java.util.Scanner;
+import java.util.StringTokenizer;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.PriorityQueue;
 
 public class Main {
-	static int dirX[] = {0, 0, -1, 1};
-	static int dirY[] = {-1, 1, 0, 0};
-	static int map[][];
-	static boolean visit[][];
-
-	static int now_x, now_y;
-	static int M, N, K;
-	static int count;
-
-	public static void main(String[] args) throws Exception {
+	public static final int MAX_N = 50;
+	public static final int MAX_M = 50;
+	public static int t,m,n,k;
+	public static int[][] grid = new int[MAX_N][MAX_M];
+	public static boolean[][] visit = new boolean[MAX_N][MAX_M];
+	public static int cnt = 0;
+	public static int[] dx = {0,0,-1,1};
+	public static int[] dy = {-1,1,0,0};
+	
+	public static boolean isNotValid(int nx, int ny) {
+		return (nx<0||nx>=m||ny<0||ny>=n);
+	}
+	
+	public static void dfs(int x, int y) {
+		visit[y][x] = true;
+		
+		for(int i=0;i<4;i++) {
+			int nx = x+dx[i];
+			int ny = y+dy[i];
+			if(isNotValid(nx,ny))
+				continue;
+			if(grid[ny][nx]==1 && visit[ny][nx]==false) {
+				dfs(nx,ny);
+			}
+		}
+	}
+	
+	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		StringTokenizer st;
-		StringBuilder sb = new StringBuilder();
-
-		int T = Integer.parseInt(br.readLine());
-		for(int i=0; i<T; i++) {
-			st = new StringTokenizer(br.readLine());
-
-			M = Integer.parseInt(st.nextToken());
-			N = Integer.parseInt(st.nextToken());
-			K = Integer.parseInt(st.nextToken());
-
-			map = new int[N][M];
-			visit = new boolean[N][M];
-
-			for(int j=0; j<K; j++) {
+		
+		t = Integer.parseInt(br.readLine());
+		
+		
+		for (int l = 0; l < t; l++) {
+			cnt = 0;
+			StringTokenizer st = new StringTokenizer(br.readLine());
+			m = Integer.parseInt(st.nextToken());
+			n = Integer.parseInt(st.nextToken());
+			k = Integer.parseInt(st.nextToken());
+			for(int i=0;i<MAX_N;i++) {
+				Arrays.fill(grid[i], 0);
+				Arrays.fill(visit[i], false);
+			}
+			
+			for (int i = 0; i < k; i++) {
 				st = new StringTokenizer(br.readLine());
 				int x = Integer.parseInt(st.nextToken());
 				int y = Integer.parseInt(st.nextToken());
-				map[y][x] = 1;
+				grid[y][x] = 1;
 			}
-
-			count = 0;
-			for(int j=0; j<N; j++) {
-				for(int k=0; k<M; k++) {
-
-					if(map[j][k] == 1 && visit[j][k] == false) {
-						count++;
-						DFS(k, j);
+			
+			for (int i = 0; i < n; i++) {
+				for (int j = 0; j < m; j++) {
+					if (grid[i][j] == 1 && visit[i][j]==false) {
+						dfs(j, i);
+						cnt++;
 					}
 				}
 			}
-			sb.append(count).append('\n');
-		}
-
-		System.out.println(sb);
-	} // End Main
-	
-	public static void DFS(int x, int y) {
-		visit[y][x] = true;
-
-		for(int i=0; i<4; i++) {
-			now_x = x + dirX[i];
-			now_y = y + dirY[i];
-
-			if(Range_check() && visit[now_y][now_x] == false && map[now_y][now_x] == 1) {
-				DFS(now_x, now_y);
-			}
-
+			System.out.println(cnt);
 		}
 	}
-
-	static boolean Range_check() {
-		return (now_y < N && now_y >= 0 && now_x < M && now_x >= 0);
-	}
-
 }
