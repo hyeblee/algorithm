@@ -1,53 +1,62 @@
-import java.util.*;
+import java.util.Scanner;
+import java.util.Stack;
+import java.util.StringTokenizer;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.PriorityQueue;
+import java.util.Queue;
 
 public class Main {
+	public static int N, M;
+	public static int[][] graph;
+	public static boolean[] visit;
 	
-	static int[][] graph = new int[1001][1001];
-	static int V;
-	static int E;
-	static boolean[] visited = new boolean[1001];
-	
-	public static void dfs(int index) {
-		if(visited[index] == true)
-			return;
-		else {
-			visited[index] = true;
-			for(int i = 1; i <= V; i++) {
-				if(graph[index][i] == 1) {
-					dfs(i);
-				}
+	public static void dfs(int u) {
+		visit[u] = true;
+		for(int i=1;i<=N;i++) {
+			if(graph[u][i]==1&&!visit[i]) {
+				visit[i] = true;
+				dfs(i);
 			}
 		}
 	}
 	
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in); 
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(br.readLine());
 		
-		V = sc.nextInt();
-		E = sc.nextInt();
+		N = Integer.parseInt(st.nextToken());
+		M = Integer.parseInt(st.nextToken());
 		
-		int a,b;
-		for(int i = 0; i < E; i++) {
-			a = sc.nextInt();
-			b = sc.nextInt();
+		graph = new int[N+1][N+1];
+		visit = new boolean[N+1];
+		
+		for(int i=0;i<M;i++) {
+			st = new StringTokenizer(br.readLine());
+			int u = Integer.parseInt(st.nextToken());
+			int v = Integer.parseInt(st.nextToken());
 			
-			// 간선 연결
-			graph[a][b] = graph[b][a] = 1;
+			graph[u][v] = 1;
+			graph[v][u] = 1;
 		}
-		
-		int result = 0 ;
-		
-		// dfs 탐색
-		for(int i = 1; i <= V; i++) {
-			if(visited[i] == false) { // 방문한 적 없는 노드라면 dfs.
+		int cnt = 0;
+		for(int i=1;i<=N;i++) {
+			if(!visit[i]) {
 				dfs(i);
-				result++;
+				cnt++;
 			}
 		}
-		
-		System.out.println(result);
-		
-		sc.close();
-		return;
+		System.out.println(cnt);
 	}
 }
