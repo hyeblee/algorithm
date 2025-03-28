@@ -1,7 +1,7 @@
 import java.util.*;
 import java.io.*;
 
-public class Main {
+public class Main {   
 	public static int[][] sudoku = new int[9][9];
 	public static Position[] zeroPos = new Position[81];
 	public static int zeroCnt = 0;
@@ -30,10 +30,8 @@ public class Main {
 	}
 
 	public static void squareSearch(int y, int x, Set set) {
-		y /= 3;
-		x /= 3;
-		y *= 3;
-		x *= 3;
+		y = y/3*3;
+		x = x/3*3;
 		for (int i = y; i < y + 3; i++) {
 			for (int j = x; j < x + 3; j++) {
 				set.remove(sudoku[i][j]);
@@ -42,7 +40,6 @@ public class Main {
 	}
 
 	public static void dfs(int depth) {
-//		System.out.println(depth);
 		if (depth == zeroCnt) {
 			end = true;
 			return;
@@ -59,18 +56,22 @@ public class Main {
 		horizontalSearch(y, set); // 가로 중복 제거
 		verticalSearch(x, set); // 세로 중복 제거
 		squareSearch(y, x, set); // 사격형 범위 중복 제거
+		
 		for (Integer val : set) {
 			sudoku[y][x] = val;
 			dfs(depth + 1);
 			if (end)
 				return;
-			sudoku[y][x] = 0;
+			// 해당 케이스 실패이므로, 0으로 돌려놓고 다음 케이스로
+			// 0으로 초기화 안할 시, 이전 depth로 돌아가서 탐색 시 영향
+			sudoku[y][x] = 0; 
 		}
 	}
 
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringBuilder sb = new StringBuilder("");
+		
 		for (int i = 0; i < 9; i++) {
 			StringTokenizer st = new StringTokenizer(br.readLine());
 			for (int j = 0; j < 9; j++) {
