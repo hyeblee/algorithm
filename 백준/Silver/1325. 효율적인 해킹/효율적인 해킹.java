@@ -51,14 +51,21 @@ public class Main {
 			visited = new boolean[n+1];
 			bfs(i);
 		}
-		int max = 0;
-		for (int val : result) {
-			max = Integer.max(val, max);
-		}
-		for(int i=1;i<=n;i++) {
-			if(result[i]==max)
-				System.out.print(i+" ");
-		}
+		ArrayList<Integer> ans = new ArrayList<>();
+        int max_value = 0;
+        for(int i=1;i<=n;i++){
+            if(result[i] > max_value){
+                max_value = result[i];
+                ans.clear();
+                ans.add(i);
+            } else if (result[i] == max_value){
+                ans.add(i);
+            }
+        }
+
+        for(int a:ans){
+            System.out.print(a+" ");
+        }
 
 	}
 }
