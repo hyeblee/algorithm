@@ -49,7 +49,6 @@ public class Main {
       }
     }
 
-    // index 1부터 출력 (index 0은 의미 없음)
     for (int i = 1; i <= n; i++) {
       System.out.print(dist[i] + " ");
     }
