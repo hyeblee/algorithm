@@ -1,22 +1,30 @@
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.*;
 
+
 public class Main {
-  public final static int MAX_SIZE = 8;
 
   public static int N, M;
-  public static int[] nums = new int[MAX_SIZE];
-  public static boolean[] visited = new boolean[MAX_SIZE];
-  public static StringBuilder result = new StringBuilder("");
+  public static int[] arr;
+  public static int[] result;
+  public static boolean[] visited;
+  public static StringBuilder sb = new StringBuilder("");
 
-  public static void dfs(int depth, String str) {
-    if(depth==M) {
-      result.append(str+"\n");
+  public static void dfs(int depth) {
+    if (depth == M) {
+      for (int n : result) {
+        sb.append(n).append(" ");
+      }
+      sb.append("\n");
+      return;
     }
-    for(int i=0;i<N;i++) {
+    for (int i = 0; i < N; i++) {
       if(!visited[i]) {
+        result[depth] = arr[i];
         visited[i] = true;
-        dfs(depth+1, str+nums[i]+" ");
+        dfs(depth + 1);
         visited[i] = false;
       }
     }
@@ -28,13 +36,21 @@ public class Main {
     StringTokenizer st = new StringTokenizer(br.readLine());
     N = Integer.parseInt(st.nextToken());
     M = Integer.parseInt(st.nextToken());
-    nums = new int[N];
+
+    result = new int[M];
+    arr = new int[N];
+    visited = new boolean[N];
     st = new StringTokenizer(br.readLine());
-    for(int i=0;i<N;i++) {
-      nums[i] = Integer.parseInt(st.nextToken());
+    for (int i = 0; i < N; i++) {
+      arr[i] = Integer.parseInt(st.nextToken());
     }
-    Arrays.sort(nums);
-    dfs(0, "");
-    System.out.println(result);
+
+    Arrays.sort(arr);
+
+
+    dfs(0);
+
+    System.out.println(sb.toString());
   }
+
 }
