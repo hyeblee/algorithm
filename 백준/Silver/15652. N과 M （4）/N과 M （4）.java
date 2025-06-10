@@ -1,30 +1,41 @@
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.*;
 
-// 최단 경로는 bfs로
 
 public class Main {
-	public static int N, M;
-	public static int[] nums;
-	public static StringBuilder result = new StringBuilder("");
-	
-	public static void dfs(int depth, String str, int before) {
-		if(depth == M) {
-			result.append(str+"\n");
-			return;
-		}
-		for(int i=1;i<=N;i++) {
-			if(before<=i)
-				dfs(depth+1,str+i+" ", i);
-		}
-	}
-	
-	public static void main(String[] args) throws IOException {
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		StringTokenizer st = new StringTokenizer(br.readLine());
-		N = Integer.parseInt(st.nextToken());
-		M = Integer.parseInt(st.nextToken());
-		dfs(0,"",0);
-		System.out.println(result);
-	}
+
+  public static int N, M;
+  public static int[] result;
+  public static StringBuilder sb = new StringBuilder("");
+
+  public static void dfs(int depth, int cur) {
+    if (depth == M) {
+      for (int n : result) {
+        sb.append(n).append(" ");
+      }
+      sb.append("\n");
+      return;
+    }
+    for (int i = cur; i < N; i++) {
+      result[depth] = i + 1;
+      dfs(depth + 1, i);
+    }
+  }
+
+
+  public static void main(String[] args) throws IOException {
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    StringTokenizer st = new StringTokenizer(br.readLine());
+    N = Integer.parseInt(st.nextToken());
+    M = Integer.parseInt(st.nextToken());
+
+    result = new int[M];
+
+    dfs(0,0);
+
+    System.out.println(sb.toString());
+  }
+
 }
