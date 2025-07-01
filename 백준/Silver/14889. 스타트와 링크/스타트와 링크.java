@@ -30,9 +30,9 @@ public class Main {
     for (int i = 0; i < n; i++) {
       for (int j = i + 1; j < n; j++) {
         if (isStart[i] && isStart[j]) {
-          start += arr[i][j] + arr[j][i];
+          start += arr[i][j];
         } else if (!isStart[i] && !isStart[j]) {
-          link += arr[i][j] + arr[j][i];
+          link += arr[i][j];
         }
       }
     }
@@ -52,6 +52,12 @@ public class Main {
       StringTokenizer st = new StringTokenizer(br.readLine());
       for (int j = 0; j < n; j++) {
         arr[i][j] = Integer.parseInt(st.nextToken());
+      }
+    }
+
+    for (int i = 0; i < n; i++) {
+      for (int j = i; j < n; j++) { // j가 항상 i보다 크다.
+        arr[i][j] += arr[j][i];
       }
     }
 
