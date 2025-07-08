@@ -22,7 +22,7 @@ public class Main {
     if (n>=2)
       dp[1] = arr[0] + arr[1]; // 0, 1 같이 마시기는 가능
     if (n>=3)
-      dp[2] = Math.max(Math.max(arr[0] + arr[2], arr[1] + arr[2]), arr[0] + arr[1]);
+      dp[2] = Math.max(Math.max(dp[1], dp[0] + arr[2]), arr[1] + arr[2]);
 
     for(int i=3;i<n;i++){
       dp[i] = Math.max(Math.max(dp[i-1], dp[i-2]+arr[i]), dp[i-3] + arr[i-1] + arr[i]);
