@@ -1,0 +1,28 @@
+-- 부모 없는 최초의 시작 아이템을 ROOT 아이템
+-- 더 업그레이드할 수 없는 아이템의 ITEM_ID, ITEM_NAME, PARITY 출력
+-- ITEM_ID 내림차순
+-- ITEM_TREE에서 PARENT_ITEM_ID에 없는 ID
+
+WITH C AS (
+    SELECT DISTINCT A.ITEM_ID
+         , A.ITEM_NAME
+         , A.RARITY
+         , B.PARENT_ITEM_ID
+     FROM ITEM_INFO A
+     JOIN ITEM_TREE B
+       ON A.ITEM_ID = B.PARENT_ITEM_ID
+) # 부모 있는 행만 필터링
+
+# SELECT * FROM C;
+SELECT A.ITEM_ID
+     , A.ITEM_NAME
+     , A.RARITY
+     # , C.PARENT_ITEM_ID
+ FROM ITEM_INFO A
+ LEFT
+ JOIN C
+   ON A.ITEM_ID = C.ITEM_ID
+WHERE C.PARENT_ITEM_ID IS NULL
+ORDER
+   BY ITEM_ID DESC;
+
