@@ -9,7 +9,7 @@ public class Main {
     public static int result = 0;
 
     public static void dfs(int start, int depth) {
-        if (depth == 4) {
+        if (depth == 4) { // e까지 탐색이 4번째 호출이므로
             result = 1;
             return;
         }
@@ -20,7 +20,7 @@ public class Main {
                 dfs(next, depth + 1);
             }
         }
-        visited[start] = false;
+        visited[start] = false; // start에서 dfs해보고 안되면 원래대로 돌리기
     }
 
     public static void main(String[] args) {
