@@ -19,11 +19,13 @@ public class Main {
     dp[depth][1] = 1;
 
     for (int child : graph[depth]) {
-      if (!visited[child]) {
-        dfs(child);
-        dp[depth][0] += dp[child][1]; // 부모가 아니면 자식은 무조건 얼리어답터
-        dp[depth][1] += Math.min(dp[child][0], dp[child][1]); // 부모가 얼리어답터면 자식은 상관없음
+      if (visited[child]) {
+        continue;
       }
+
+      dfs(child);
+      dp[depth][0] += dp[child][1];
+      dp[depth][1] += Math.min(dp[child][0], dp[child][1]);
     }
   }
 
