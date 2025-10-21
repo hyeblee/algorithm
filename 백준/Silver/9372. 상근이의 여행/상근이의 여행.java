@@ -1,32 +1,23 @@
 import java.util.*;
+import java.io.*;
 
 public class Main {
 
-  // T
-  // 국가 수 N, 비행기 종류 M
-  // a,b 쌍 M 개
-  // 모든 정점을 잇는 간선 조합 찾기~
-
-
-  public static int t;
-  public static int n, m;
-
-  public static void main(String[] args) {
-    Scanner sc = new Scanner(System.in);
-
-    t = sc.nextInt();
-    for (int i = 0; i < t; i++) {
-      n = sc.nextInt();
-      m = sc.nextInt();
-
-      for (int j = 0; j < m; j++) {
-        sc.nextInt();
-        sc.nextInt();
+  // 정점 n개를 모두 연결하면서, 사이클이 없으려면 최소 n-1개의 간선이 필요하다.
+  // 정점 n개가 연결가능하다면, 간선은 n-1개만 있으면 된다.
+  
+  public static void main(String[] args) throws IOException {
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    int T = Integer.parseInt(br.readLine());
+    for (int t = 0; t < T; t++) {
+      StringTokenizer st = new StringTokenizer(br.readLine());
+      int n = Integer.parseInt(st.nextToken());
+      int m = Integer.parseInt(st.nextToken());
+      for (int i = 0; i < m; i++) {
+        br.readLine();
       }
-
-      // 연결그래프에서 모든 정점을 잇는 최소 간선의 수는 항상 n-1개이다.
       System.out.println(n - 1);
-
     }
   }
+
 }
