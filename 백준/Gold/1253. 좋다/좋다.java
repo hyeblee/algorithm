@@ -8,33 +8,37 @@ public class Main {
         
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.parseInt(br.readLine());
-        int[] arr = new int[n];
+        long[] arr = new long[n];
 
         StringTokenizer st  = new StringTokenizer(br.readLine());
         for(int i=0;i<n;i++) {
-            arr[i] = Integer.parseInt(st.nextToken());
+            arr[i] = Long.parseLong(st.nextToken());
         }
         Arrays.sort(arr);
 
         int cnt = 0;
 
         for(int i=0; i<n;i++) {
-            int target = arr[i];
+            long target = arr[i];
             int l = 0;
             int r = n-1;
             while (l < r) {
-                int sum = arr[l] + arr[r];
+                if (l == i) {
+                    l++; 
+                    continue;
+                }
+                if (r == i) {
+                    r--;
+                    continue;
+                }
+                long sum = arr[l] + arr[r];
                 
                 if (sum == target) {
                     // System.out.println(arr[l] + " " + arr[r] + " " + target);
-                    if (l != i && r != i) {
-                        cnt++;
-                        break;
-                    }
-                    else if (l == i) l++;
-                    else r--;
+                    cnt++;
+                    break;
                 }
-                else if (sum < target) {
+                if (sum < target) {
                     l++;
                 } else {
                     r--;
